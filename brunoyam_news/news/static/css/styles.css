@@ -1,0 +1,149 @@
+body {
+  background-color: #e9ecef;
+}
+
+.navbar {
+  background-color: #aab3c5;
+  border-radius: 1vh;
+}
+
+.btn {
+  background-color: #dee2e6;
+  font-size: 1.6vh;
+}
+
+.btn:hover {
+ background-color: #87CEEB;
+ }
+
+.dropdown-menu {
+  background-color: #dee2e6;
+}
+
+.navbar-brand {
+  font-size: 1.6vh;
+}
+
+.dropdown-item {
+  font-size: 1.3vh;
+}
+
+.dropdown-item:hover {
+ background-color: #87CEEB;
+ }
+
+.main-header {
+  background-color: #dee2e6;
+  border-radius: 1vh;
+  text-align: center;
+}
+
+.main-header h1 {
+  font-size: 4vh;
+  font-family: Verdana;
+  color: #D2691E;
+}
+
+.main-header h2 {
+  font-size: 2vh;
+  font-family: Verdana;
+  color: #D2691E;
+}
+
+.main-content-header {
+  background-color: #dee2e6;
+  border-radius: 1vh;
+  text-align: center;
+}
+
+.main-content-header h3 {
+  font-size: 1.6vh;
+  font-family: Verdana;
+}
+
+.card {
+  background-color: #dee2e6;
+  align-items: center;
+
+}
+
+.card h4 {
+  font-size: 1.6vh;
+  font-family: Verdana;
+  text-align: center;
+}
+
+.card p {
+  font-size: 1.3vh;
+  text-align: justify;
+  margin-bottom: 0;
+}
+
+.card img {
+  width: 40%;
+  height: 40%;
+  text-align: center;
+  margin: 0.2vh;
+}
+
+@media only screen and (max-width: 575px) {
+  .card img {
+    width: 60%;
+  }
+}
+
+.sidebar-container {
+  background-color: #dee2e6;
+  border-radius: 1vh;
+  position: sticky;
+  top: 0;
+}
+
+.sidebar-header h3 {
+  display: grid;
+  place-items: center;
+  font-size: 1.6vh;
+}
+
+div.commercial {
+  text-align: center;
+  font-size: 1.3vh;
+}
+
+.commercial img {
+  width: 50%;
+}
+
+.commercial-row p {
+  width: 100%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.footer-container {
+  background-color: #dee2e6;
+  text-align: left;
+  font-size: 1.3vh;
+  border-radius: 1vh;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+ul {
+  list-style-type: none;
+}
+
+footer li{
+  margin-bottom: 0.65vh;
+}
+
+.brands-icons {
+  display: grid;
+  place-items: center;
+  font-size: 2.5vh;
+}
