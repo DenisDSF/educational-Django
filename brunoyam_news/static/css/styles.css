@@ -7,6 +7,23 @@ body {
   border-radius: 1vh;
 }
 
+.d-flex {
+  width: 100%;
+  align-items: center;
+}
+
+.navbar-brand {
+  padding-left: 2vh;
+}
+
+.cart {
+  padding-right: 2vh;
+}
+
+.dropdown {
+  padding-right: 2vh;
+}
+
 .btn {
   background-color: #dee2e6;
   font-size: 1.6vh;
