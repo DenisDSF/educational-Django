@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Страница товара {{ product.name }}{% endblock %}
+{% block cart %}
+<a class="basket" href="#" onclick="event.preventDefault();">
+  <i class="fa-solid fa-basket-shopping"></i>
+</a>
+{% endblock %}
+{% block header %}Страница товара {{ product.name }}{% endblock %}
+{% block content %}
+{% include 'product_card.html' %}
+{% endblock %}

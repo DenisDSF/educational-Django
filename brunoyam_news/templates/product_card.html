@@ -1,0 +1,56 @@
+{% load static %}
+<div class="product-card">
+  <div class="image-div">
+    <div class="image-title">
+      <p>Фото {{ product.name }}</p>
+    </div>
+    <div class="product-image">
+      <img src="{% static ''%}{{ product.image }}" alt="Фото">
+    </div>
+  </div>
+  <div class="description-div">
+    <div class="row">
+      <div class="col-sm-3 col-5">
+        <p>Наименование товара:</p>
+      </div>
+      <div class="col-sm-9 col-7">
+        <p>{{ product.name }}</p>
+      </div>
+    </div>
+        <div class="row">
+      <div class="col-sm-3 col-5">
+        <p>Категория товара:</p>
+      </div>
+      <div class="col-sm-9 col-7">
+        <p>{{ category_name }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <p>Описание товара:</p>
+      </div>
+      <div class="col-9">
+        <p>{{ product.product_description }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <p>Остаток товара:</p>
+      </div>
+      <div class="col-9">
+        <p>{{ product.stock }}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <p>Цена:</p>
+      </div>
+      <div class="col-9">
+        <p>{{ product.price }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="basket-button">
+      <button type="button" class="btn basket-btn">В корзину</button>
+    </div>
+</div>

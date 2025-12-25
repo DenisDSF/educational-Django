@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from news.models import Article
+from .models import Article
 
 def index(request):
     main_news = Article.objects.all()[0]

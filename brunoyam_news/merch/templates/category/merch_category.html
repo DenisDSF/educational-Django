@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Мерч Brunoyam News{% endblock %}
+{% block cart %}
+<a class="basket" href="#" onclick="event.preventDefault();">
+  <i class="fa-solid fa-basket-shopping"></i>
+</a>
+{% endblock %}
+{% block header %}Наш мерч - самый лучший мерч!{% endblock %}
+{% block content %}
+{% for item in categories %}
+  <a href="{% url 'products_list' item.name %}">
+    <div class="category card d-flex flex-sm-row">
+      <img src="{% static ''%}{{ item.image }}" alt="Фото">
+      <div class="card-body">
+        <h4>
+          {{ item.name }}
+        </h4>
+      </div>
+    </div>
+  </a>
+{% endfor %}
+{% endblock %}
