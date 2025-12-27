@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Перечень товаров {{ category.name }}{% endblock %}
+{% block title %}Перечень товаров {{ category_name }}{% endblock %}
 {% block cart %}
 <a class="basket" href="#" onclick="event.preventDefault();">
   <i class="fa-solid fa-basket-shopping"></i>
 </a>
 {% endblock %}
-{% block header %}Товары категории {{ category.name }}{% endblock %}
+{% block header %}Товары категории {{ category_name }}{% endblock %}
 {% block content %}
 <div class="row product-title">
   <div class="col-sm-3 col-4 product-img">
@@ -24,7 +24,7 @@
 </div>
 {% for product in products %}
   {% if product.stock > 0 %}
-    <a href="{% url 'product' category.name product.id %}">
+    <a href="{% url 'product' category_name product.id %}">
       <div class="row product-row">
         <div class="col-sm-3 col-4 product-img">
           <img src="{% static ''%}{{ product.image }}" alt="Фото">

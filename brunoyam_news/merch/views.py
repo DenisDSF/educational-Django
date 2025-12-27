@@ -9,10 +9,10 @@ def merch_category(request):
     return render(request, 'category/merch_category.html', context)
 
 def products_list(request, category_name):
-    category = Category.objects.get(name=category_name)
-    products = category.products.exclude(stock=0, supplies=False)
+    products = (Category.objects.get(name=category_name)\
+                .products.exclude(stock=0, supplies=False))
     context = {
-        'category': category,
+        'category_name': category_name,
         'products': products
     }
     return render(request, 'products/products_list.html', context)

@@ -58,7 +58,10 @@ ROOT_URLCONF = 'brunoyam_news.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [
+            BASE_DIR / 'news/templates/news',
+            BASE_DIR / 'merch/templates/products',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
