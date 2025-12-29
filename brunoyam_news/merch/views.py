@@ -9,8 +9,8 @@ def merch_category(request):
     return render(request, 'category/merch_category.html', context)
 
 def products_list(request, category_name):
-    products = (Category.objects.get(name=category_name)\
-                .products.exclude(stock=0, supplies=False))
+    products = Product.objects.select_related()\
+        .filter(category__name=category_name).exclude(stock=0, supplies=False)
     context = {
         'category_name': category_name,
         'products': products
