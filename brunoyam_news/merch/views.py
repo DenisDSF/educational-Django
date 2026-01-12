@@ -10,7 +10,7 @@ def merch_category(request):
     }
     return render(request, 'category/merch_category.html', context)
 
-def checking_product_availability(all_products):
+def get_available_product(all_products):
     available_products = all_products.exclude(stock=0, supplies=False)
     return available_products
 
@@ -18,7 +18,7 @@ def products_list(request, category_name):
     if Category.objects.filter(name=category_name).exists():
         all_products = Product.objects.select_related('category')\
             .filter(category__name=category_name)
-        available_products = checking_product_availability(all_products)
+        available_products = get_available_product(all_products)
         context = {
             'category_name': category_name,
             'products': available_products
