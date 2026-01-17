@@ -22,47 +22,53 @@
     <p>Наличие товара</p>
   </div>
 </div>
-{% for product in products %}
-  {% if product.stock > 0 %}
-    <a href="{% url 'product' category_name product.id %}">
-      <div class="row product-row">
-        <div class="col-sm-3 col-4 product-img">
-          <img src="{% static ''%}{{ product.image }}" alt="Фото">
+{% if products %}
+  {% for product in products %}
+    {% if product.stock > 0 %}
+      <a href="{% url 'product' category_name product.id %}">
+        <div class="row product-row">
+          <div class="col-sm-3 col-4 product-img">
+            <img src="{% static ''%}{{ product.image }}" alt="Фото">
+          </div>
+          <div class="col-sm-3 col-5 product-name">
+            <p>{{ product.name }}</p>
+          </div>
+          <div class="col-sm-3 col-3 product-price">
+            <p>{{ product.price }}</p>
+          </div>
+          <div class="col-1 product-stock d-none d-sm-block">
+            <p>{{ product.stock }}</p>
+          </div>
+          <div class="col-2 basket d-none d-sm-block">
+            <i class="fa-solid fa-basket-shopping"></i>
+          </div>
         </div>
-        <div class="col-sm-3 col-5 product-name">
-          <p>{{ product.name }}</p>
+      </a>
+    {% endif %}
+  {% endfor %}
+  {% for product in products %}
+    {% if product.stock == 0 %}
+      <div class="out-of-stock">
+        <div class="z-2 text-overlay">
+          <p> Временно нет в наличии</p>
         </div>
-        <div class="col-sm-3 col-3 product-price">
-          <p>{{ product.price }}</p>
-        </div>
-        <div class="col-1 product-stock d-none d-sm-block">
-          <p>{{ product.stock }}</p>
-        </div>
-        <div class="col-2 basket d-none d-sm-block">
-          <i class="fa-solid fa-basket-shopping"></i>
+        <div class="z-1 row product-row">
+          <div class="col-sm-3 col-4 product-img">
+            <img src="{% static ''%}{{ product.image }}" alt="Фото">
+          </div>
+          <div class="col-sm-3 col-5 product-name">
+            <p>{{ product.name }}</p>
+          </div>
+          <div class="col-sm-3 col-3 product-price">
+            <p>{{ product.price }}</p>
+          </div>
         </div>
       </div>
-    </a>
-  {% endif %}
-{% endfor %}
-{% for product in products %}
-  {% if product.stock == 0 %}
-    <div class="out-of-stock">
-      <div class="z-2 text-overlay">
-        <p> Временно нет в наличии</p>
-      </div>
-      <div class="z-1 row product-row">
-        <div class="col-sm-3 col-4 product-img">
-          <img src="{% static ''%}{{ product.image }}" alt="Фото">
-        </div>
-        <div class="col-sm-3 col-5 product-name">
-          <p>{{ product.name }}</p>
-        </div>
-        <div class="col-sm-3 col-3 product-price">
-          <p>{{ product.price }}</p>
-        </div>
-      </div>
-    </div>
-  {% endif %}
-{% endfor %}
+    {% endif %}
+  {% endfor %}
+{% else %}
+<div class="row product-row">
+  <p> Товары данной категории временно отсутствуют.</p>
+</div>
+{% endif %}
 {% endblock %}

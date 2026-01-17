@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseNotFound
 from .models import Category, Product
+from .services import get_available_products
 
 def merch_category(request):
     categories = Category.objects.all()
@@ -10,25 +11,18 @@ def merch_category(request):
     }
     return render(request, 'category/merch_category.html', context)
 
-def get_available_products(all_products):
-    available_products = all_products.exclude(stock=0, supplies=False)
-    return available_products
-
 def products_list(request, category_name):
-    if Category.objects.filter(name=category_name).exists():
-        all_products = Product.objects.select_related('category')\
-            .filter(category__name=category_name)
-        available_products = get_available_products(all_products)
+    products = get_available_products(category_name)
+    if products != 'Not exist':
         context = {
             'category_name': category_name,
-            'products': available_products
+            'products': products
         }
         return render(request, 'products/products_list.html', context)
     else:
         return HttpResponseNotFound()
 
 def product(request, category_name, product_id):
-    category_name = category_name
     try:
         product = Product.objects.get(id=product_id)
         context = {
