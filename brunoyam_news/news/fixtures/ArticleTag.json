@@ -1,0 +1,1 @@
+[{"model": "news.articletag", "pk": 1, "fields": {"name": "Политика"}}, {"model": "news.articletag", "pk": 2, "fields": {"name": "Наука"}}, {"model": "news.articletag", "pk": 3, "fields": {"name": "Техника"}}, {"model": "news.articletag", "pk": 4, "fields": {"name": "Погода"}}, {"model": "news.articletag", "pk": 8, "fields": {"name": "Сельское хозяйство"}}]

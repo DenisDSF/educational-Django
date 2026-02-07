@@ -3,19 +3,16 @@ from django.db import models
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
-    birth_date = models.DateField()
 
     def __str__(self):
         return self.name
 
 
-class Book(models.Model):
-    title = models.CharField(max_length=200)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    published_date = models.DateField()
+class ArticleTag(models.Model):
+    name = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.title
+        return self.name
 
 
 class Article(models.Model):
@@ -28,15 +25,25 @@ class Article(models.Model):
         INACTIVE = 'inactive', 'Неактивная'
 
     author = models.ForeignKey(
-        'users.User',
+        Author,
         related_name='articles',
         on_delete=models.SET_NULL,
         null=True,
-        default=None)
+    )
 
     title = models.CharField('Заголовок новости', max_length=64, unique=True)
     description = models.CharField('Описание новости', max_length=200)
     text = models.TextField('Текст новости')
+    article_tags = models.ManyToManyField(
+        ArticleTag,
+        related_name='articles'
+    )
+    image = models.ImageField(
+        upload_to='images/',
+        null=True,
+        blank=True
+    )
+
     status = models.CharField(
         max_length=8,
         choices=Status.choices,
@@ -48,4 +55,5 @@ class Article(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
+    def __str__(self):
+        return self.title

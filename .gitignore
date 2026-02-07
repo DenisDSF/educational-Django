@@ -4,3 +4,5 @@ __pycache__/
 .idea/
 .env
 db.sqlite3
+/brunoyam_news/.coverage
+/brunoyam_news/htmlcov/

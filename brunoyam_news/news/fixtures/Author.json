@@ -1,0 +1,1 @@
+[{"model": "news.author", "pk": 1, "fields": {"name": "Иван Петров"}}, {"model": "news.author", "pk": 2, "fields": {"name": "Олег Моисеев"}}, {"model": "news.author", "pk": 3, "fields": {"name": "Татьяна Снежина"}}]

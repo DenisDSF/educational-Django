@@ -4,81 +4,19 @@
 {% block cart %}{% endblock %}
 {% block header %}Самые свежие новости{% endblock %}
 {% block content %}
-<a href="#" onclick="event.preventDefault();">
-  <div class="card d-flex flex-sm-row ">
-    <img src="{% static 'img/MID.jpg'%}" alt="Фото">
-    <div class="card-body">
-      <h4>{{ main_news.title }}</h4>
-      <p>
-        {{ main_news.description }}
-      </p>
+{% for news in all_news %}
+  <a href="#" onclick="event.preventDefault();">
+    <div class="card d-flex flex-sm-row ">
+      {% if news.image %}
+        <img src="{{ news.image.url }}" alt="Фото">
+      {% endif %}
+      <div class="card-body">
+        <h4>{{ news.title }}</h4>
+        <p>
+          {{ news.description }}
+        </p>
+      </div>
     </div>
-  </div>
-</a>
-<a href="#" onclick="event.preventDefault();">
-  <div class="card d-flex flex-sm-row">
-    <img src="{% static 'img/CBR.jpg'%}" alt="Фото">
-    <div class="card-body">
-      <h4>
-        Центральный Банк России выходит на валютный рынок с
-        интервенциями!
-      </h4>
-      <p>
-        В целях удержания стабильного курса рубля ЦБ РФ выходит
-        на валютный рынок с интервенциями. Будет продано 100500
-        тыс долларов...!
-      </p>
-    </div>
-  </div>
-</a>
-<a href="#" onclick="event.preventDefault();">
-  <div class="card d-flex flex-sm-row">
-    <img src="{% static 'img/belarus.jpg'%}" alt="Фото">
-    <div class="card-body">
-      <h4>Сельское хозяйство Беларуси развивается!</h4>
-      <p>
-        Беларусы собрали рекордное количество
-        картофеля и пшеницы...!
-      </p>
-    </div>
-  </div>
-</a>
-<a href="#" onclick="event.preventDefault();">
-  <div class="card d-flex flex-sm-row">
-    <img src="{% static 'img/tigr.jpg'%}" alt="Фото">
-    <div class="card-body">
-      <h4>Амурский тигр вышел к людям!</h4>
-      <p>
-        Амурский тигр вышел к людям. Смотри, что случилось...!
-      </p>
-    </div>
-  </div>
-</a>
-<a href="#" onclick="event.preventDefault();">
-  <div class="card d-flex flex-sm-row">
-    <img src="{% static 'img/cat.jpg'%}" alt="Фото">
-    <div class="card-body">
-      <h4>Кошка родила котят!</h4>
-      <p>Вот такая вот позитивная новость. Не грустите...!</p>
-    </div>
-  </div>
-</a>
-<a href="#" onclick="event.preventDefault();">
-  <div class="card d-flex flex-sm-row">
-    <img src="{% static 'img/cosul.jpg'%}" alt="Фото">
-    <div class="card-body">
-      <h4>
-        Более 300 застрявших на льду косуль спасли в
-        Новосибирской области.
-      </h4>
-      <p>
-        А вот это реальная новость. Масштабную операцию по
-        спасению более 300 косуль провели в Новосибирской области
-        специалисты областного минприроды, спасатели и охотники,
-        сообщается в Telegram-канале Министерства природных
-        ресурсов и экологии региона.
-      </p>
-    </div>
-  </div>
-</a>
+  </a>
+{% endfor %}
 {% endblock %}

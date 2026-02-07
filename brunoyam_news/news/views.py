@@ -1,8 +1,8 @@
-from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Article
+from .services import get_news
+
 
 def index(request):
-    main_news = Article.objects.all()[0]
-    context = dict(main_news=main_news)
+    all_news = get_news()
+    context = dict(all_news=all_news)
     return render(request, 'news/index.html', context=context)

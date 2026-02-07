@@ -1,2 +1,3 @@
 psycopg==3.2.13
 Django==5.2.8
+factory_boy==3.3.3
