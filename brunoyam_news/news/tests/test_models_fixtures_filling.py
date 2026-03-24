@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 from django.test import TestCase
-from .models import Author, ArticleTag, Article
+from ..models import Author, ArticleTag, Article
 
 
 class AuthorModelTest(TestCase):
@@ -47,8 +47,8 @@ class ArticleTest(TestCase):
         Объект модели pk=5 имеет автора из модели Author с именем
         'Иван Петров', титул 'Научно-техническая новость 1', описание
         'Описание научно-технической новости 1', текст 'Текст
-        научно-технической новости 1'. Дата и время публикации объекта модели -
-        '2026-01-01 07:00:00'. Статус объекта модели 'PUBLISH'.
+        научно-технической новости 1'. Дата и время публикации объекта
+        модели - '2026-01-01 07:00:00'. Статус объекта модели 'PUBLISH'.
         Первый тег объекта 'Наука', второй 'Техника' из модели ArticleTag.
         Изображение со ссылкой 'images/nt1.jpg'.
         """
@@ -116,7 +116,10 @@ class ArticleTest(TestCase):
         self.tag1 = ArticleTag.objects.get(pk=2)
         self.tag2 = ArticleTag.objects.get(pk=3)
         self.verifiable_article = Article.objects.get(pk=5)
-        self.assertEqual(self.author.articles.all()[0], self.verifiable_article)
+        self.assertEqual(
+            self.author.articles.all()[0],
+            self.verifiable_article
+        )
         self.assertEqual(self.tag1.articles.all()[0], self.verifiable_article)
         self.assertEqual(self.tag2.articles.all()[0], self.verifiable_article)
 

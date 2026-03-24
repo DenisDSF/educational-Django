@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Личный кабинет{% endblock %}
+{% block cart %}{% endblock %}
+{% block header %}Личный кабинет{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-sm-3 col-1"></div>
+  <div class="col-sm-6 col-10 personal-data">
+      <p>Имя: {{ user.name|default_if_none:"Не указано" }}</p>
+      <p>Фамилия: {{ user.surname|default_if_none:"Не указано" }}</p>
+      <p>Почта: {{ user.email|default:"Не указано" }}</p>
+      <div class="d-grid gap-2">
+        <a class="btn btn-outline-secondary"
+           href="{% url 'personal_data_change' %}" role="button">
+            Изменить личную информацию
+        </a>
+        <a class="btn btn-outline-secondary"
+           href="{% url 'password_change' %}" role="button">
+            Изменить пароль
+        </a>
+      </div>
+  </div>
+  <div class="col-sm-3 col-1"></div>
+</div>
+{% endblock %}

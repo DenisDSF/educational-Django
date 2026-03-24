@@ -1,7 +1,7 @@
 from datetime import timezone, datetime
 import factory
 from factory.django import DjangoModelFactory
-from .models import Author, ArticleTag, Article
+from ..models import Author, ArticleTag, Article, Comment
 
 
 class AuthorFactory(DjangoModelFactory):
@@ -44,3 +44,13 @@ class ArticleFactory(DjangoModelFactory):
         else:
             tags = ArticleTagFactory.create_batch(2)
             self.article_tags.set(tags)
+
+
+class CommentFactory(DjangoModelFactory):
+    class Meta:
+        model = Comment
+
+    article = factory.SubFactory(ArticleFactory)
+    text = factory.Faker('text', max_nb_chars=300)
+    user = None
+    is_anon = True

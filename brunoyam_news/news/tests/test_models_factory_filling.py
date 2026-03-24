@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from .factories import AuthorFactory, ArticleTagFactory, ArticleFactory
-from .models import Author, ArticleTag, Article
+from ..models import Author, ArticleTag, Article
 
 
 class AuthorModelTest(TestCase):
@@ -47,7 +47,10 @@ class ArticleTest(TestCase):
     def setUp(self):
         ArticleFactory.create_batch(4)
         self.image_name = 'photo1.jpg'
-        ArticleFactory.create(status=Article.Status.PUBLISH, image=self.image_name)
+        ArticleFactory.create(
+            status=Article.Status.PUBLISH,
+            image=self.image_name
+        )
 
     def test_article_creation(self):
         """
@@ -59,7 +62,10 @@ class ArticleTest(TestCase):
         self.verifiable_article = self.articles[4]
         self.articles_count = len(self.articles)
         self.assertEqual(self.articles_count, 5)
-        self.assertEqual(self.verifiable_article.status, Article.Status.PUBLISH)
+        self.assertEqual(
+            self.verifiable_article.status,
+            Article.Status.PUBLISH
+        )
         self.assertEqual(
             self.verifiable_article.image,
             self.image_name
@@ -77,7 +83,10 @@ class ArticleTest(TestCase):
         self.tag1 = ArticleTag.objects.all()[0]
         self.tag2 = ArticleTag.objects.all()[1]
         self.verifiable_article = Article.objects.all()[0]
-        self.assertEqual(self.author.articles.all()[0], self.verifiable_article)
+        self.assertEqual(
+            self.author.articles.all()[0],
+            self.verifiable_article
+        )
         self.assertEqual(self.tag1.articles.all()[0], self.verifiable_article)
         self.assertEqual(self.tag2.articles.all()[0], self.verifiable_article)
 

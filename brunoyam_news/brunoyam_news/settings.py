@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'news',
-    'merch'
+    'merch',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'brunoyam_news.urls'
@@ -133,3 +135,15 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = 'media/'
 
 MEDIA_URL = 'media/'
+
+AUTH_USER_MODEL = 'users.User'
+
+LOGIN_REDIRECT_URL = 'index'
+
+LANGUAGE_CODE = 'ru-RU'
+
+USE_I18N = True
+
+FIXTURE_DIRS = [
+    BASE_DIR / 'news/tests/fixtures',
+]

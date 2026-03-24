@@ -1,6 +1,6 @@
 from django.utils import timezone
 from django.test import TestCase
-from .models import Author, ArticleTag, Article
+from ..models import Author, ArticleTag, Article
 
 
 class AuthorModelTest(TestCase):

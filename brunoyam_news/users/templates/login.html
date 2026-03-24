@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Авторизация{% endblock %}
+{% block cart %}{% endblock %}
+{% block header %}Авторизация пользователя{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+  <div class="row">
+    <p>
+      Ошибка! Вы уже авторизованы как {{ request.user.username }}.
+      Что бы зайти под другим логином необходимо выйти.
+    </p>
+  </div>
+{% else %}
+  <div class="row">
+    <div class="col-sm-3 col-1"></div>
+    <div class="col-sm-6 col-10 login">
+      <div class="login-form">
+        <form method="POST" action="{% url 'login' %}">
+          {% csrf_token %}
+          <div class="form-error">
+            {% for error in form.non_field_errors %}
+              <div class="error">
+                <p>{{ error }}</p>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="mb-3">
+            <label for="usernameInput" class="form-label">
+              Имя пользователя:
+            </label>
+            <input name="username"
+                   type="text" class="form-control" id="usernameInput">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Пароль:</label>
+            <input name="password"
+                   type="password" class="form-control" id="password">
+          </div>
+          <button type="submit" class="btn btn-dark">Войти</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-sm-3 col-1"></div>
+  </div>
+{% endif %}
+{% endblock %}

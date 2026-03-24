@@ -5,18 +5,78 @@
 {% block header %}Самые свежие новости{% endblock %}
 {% block content %}
 {% for news in all_news %}
-  <a href="#" onclick="event.preventDefault();">
-    <div class="card d-flex flex-sm-row ">
+  <a href="{% url 'article-detail' pk=news.pk %}">
+    <div class="row news-row">
       {% if news.image %}
-        <img src="{{ news.image.url }}" alt="Фото">
+        <div class="col-4 news-img">
+          <img src="{{ news.image.url }}" alt="Фото">
+        </div>
+        <div class="col-8 news-body">
+          <div class="row">
+            <h5>{{ news.title }}</h5>
+            <p>{{ news.description }}</p>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <p>Комментариев: </p>
+            </div>
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+              <p>{{ news.pub_date|date:"d-w-Y" }}</p>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <div class="news-body">
+          <div class="row">
+            <h5>{{ news.title }}</h5>
+            <p>{{ news.description }}</p>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <p>Комментариев: </p>
+            </div>
+            <div class="col-4">
+            </div>
+            <div class="col-4">
+              <p>{{ news.pub_date|date:"d-w-Y" }}</p>
+            </div>
+          </div>
+        </div>
       {% endif %}
-      <div class="card-body">
-        <h4>{{ news.title }}</h4>
-        <p>
-          {{ news.description }}
-        </p>
-      </div>
     </div>
   </a>
 {% endfor %}
+<nav aria-label="Page__navigation">
+  <ul class="pagination">
+    <li class="page-item">
+      <a class="page-link" href="{% url 'index' %}?page=1">
+      В начало
+      </a>
+    </li>
+    {% if page_obj.has_previous %}
+    <li class="page-item">
+      <a class="page-link"
+         href="{% url 'index' %}?page={{ page_obj.previous_page_number }}">
+      Предыдущая страница
+      </a>
+    </li>
+    {% endif %}
+    {% if page_obj.has_next %}
+    <li class="page-item">
+      <a class="page-link"
+         href="{% url 'index' %}?page={{ page_obj.next_page_number }}">
+      Следующая страница
+      </a>
+    </li>
+    {% endif %}
+    <li class="page-item">
+      <a class="page-link"
+         href="{% url 'index' %}?page={{ page_obj.paginator.num_pages }}">
+      В конец
+      </a>
+    </li>
+  </ul>
+</nav>
 {% endblock %}

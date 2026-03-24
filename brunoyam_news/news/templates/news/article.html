@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block cart %}{% endblock %}
+{% block header %}{{ article.title }}{% endblock %}
+{% block content %}
+<div class="article-detail">
+  {% if article.image %}
+    <div class="image-div">
+      <div class="product-image">
+        <img src="{{ article.image.url }}" alt="Фото">
+      </div>
+    </div>
+  {% endif %}
+  <div class="article-text">
+    <div class="row text-row">
+      <p>{{ article.text }}</p>
+    </div>
+    <div class="row pub-date-row">
+      <p>Дата публикации: {{ article.pub_date|date:"d-w-Y" }}</p>
+    </div>
+  </div>
+  <div class="comment">
+    <form method="POST"
+          action="{% url 'article-add-comment' pk=article.pk %}">
+      {% csrf_token %}
+      <div class="form-fields-error">
+        {% for message in messages %}
+          <div class="field-error">
+            <p>{{ message }}</p>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="row comments-form">
+        <div class="mb-3">
+          <label for="Textarea1" class="form-label">
+            Введите текст комментария:
+          </label>
+          <textarea name="text" class="comment form-control"
+                    id="Textarea1" rows="5"></textarea>
+          {% if user.is_authenticated %}
+            <div class="form-check">
+              <input name="is_anon" class="form-check-input" type="checkbox"
+                     value="is_anon" id="AnonCheck">
+              <label class="form-check-label" for="AnonCheck">
+                Отправить анонимно.
+              </label>
+            </div>
+          {% else %}
+            <p> Вы не авторизованы. Сообщение будет отправлено анонимно.</p>
+          {% endif %}
+          <button type="submit" class="btn btn-dark">Отправить</button>
+        </div>
+      </div>
+    </form>
+    <div class="article-comments">
+      <p>Комментариев {{ paginator.count }}. Комментарии:</p>
+      {% if comments %}
+        {% for comment in comments %}
+          <div class="article-comment">
+            <p>{{ comment.username }} сообщает:</p>
+            <p>{{ comment.text }}</p>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p> Комментарии отсутствуют.</p>
+      {% endif %}
+      {% if is_paginated %}
+        <nav aria-label="Page__navigation">
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link" href="?page=1">
+              В начало
+              </a>
+            </li>
+            {% if comments.has_previous %}
+            <li class="page-item">
+              <a class="page-link"
+                 href="?page={{ comments.previous_page_number }}">
+              Предыдущая страница
+              </a>
+            </li>
+            {% endif %}
+            {% if comments.has_next %}
+            <li class="page-item">
+              <a class="page-link"
+                 href="?page={{ comments.next_page_number }}">
+              Следующая страница
+              </a>
+            </li>
+            {% endif %}
+            <li class="page-item">
+              <a class="page-link"
+                 href="?page={{ comments.paginator.num_pages }}">
+              В конец
+              </a>
+            </li>
+          </ul>
+        </nav>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
