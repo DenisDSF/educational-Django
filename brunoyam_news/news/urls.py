@@ -1,7 +1,7 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import IndexView, ArticleDetailView, create_comment
+from .views import IndexView, ArticleDetailView, ArticleCreateCommentView
 
 urlpatterns = [
     path('index/', IndexView.as_view(), name='index'),
@@ -12,7 +12,7 @@ urlpatterns = [
     ),
     path(
         'articles/<int:pk>/add_comment',
-        create_comment,
+        ArticleCreateCommentView.as_view(),
         name='article-add-comment'
     )
 ]

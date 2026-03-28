@@ -1,24 +1,26 @@
-from django.contrib.auth.views import (PasswordChangeDoneView,
-                                       PasswordChangeView)
+from django.contrib.auth.views import (
+    PasswordChangeDoneView,
+    PasswordChangeView,
+    LogoutView
+)
 from django.urls import path, reverse_lazy
 
 from .forms import MyPasswordChangeForm
 from .views import (
-    sign_up_view,
-    LoginUser,
-    logout_view,
-    personal_view,
-    personal_data_change_view
+    LoginUserView,
+    SignUpView,
+    PersonalDataView,
+    PersonalDataUpdateView
 )
 
 urlpatterns = [
-    path('signup/', sign_up_view, name='signup'),
-    path('logout/', logout_view, name='logout'),
-    path('login/', LoginUser.as_view(), name='login'),
-    path('personal/', personal_view, name='personal'),
+    path('signup/', SignUpView.as_view(), name='signup'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('login/', LoginUserView.as_view(), name='login'),
+    path('personal/', PersonalDataView.as_view(), name='personal'),
     path(
         'personal/change/',
-        personal_data_change_view,
+        PersonalDataUpdateView.as_view(),
         name='personal_data_change'
     ),
     path(

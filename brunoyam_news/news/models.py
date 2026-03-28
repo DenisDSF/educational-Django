@@ -79,5 +79,7 @@ class Comment(models.Model):
 
     @property
     def username(self):
-        return self.user.username if self.user is not None else \
-            'Анонимный пользователь'
+        if self.is_anon or self.user is None:
+            return 'Анонимный пользователь'
+        else:
+            return self.user

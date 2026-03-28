@@ -89,7 +89,7 @@ class ArticleDetailViewTest(TestCase):
 
 class CreateCommentViewTest(TestCase):
     def setUp(self):
-        ArticleFactory.create()
+        ArticleFactory.create(status=Article.Status.PUBLISH)
         self.test_article = Article.objects.all()[0]
         self.url = f'/articles/{self.test_article.pk}/add_comment'
 

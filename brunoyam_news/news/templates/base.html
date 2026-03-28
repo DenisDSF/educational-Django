@@ -47,9 +47,12 @@
                 <li><a class="dropdown-item" href="{% url 'personal' %}">
                   Пользователь: {{ request.user.username }}
                 </a></li>
-                <li><a class="dropdown-item" href="{% url 'logout' %}">
-                  Выйти
-                </a></li>
+                <li>
+                  <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <input class="dropdown-item" type="submit" value="Выйти"/>
+                  </form>
+                </li>
               {% else %}
                 <li><a class="dropdown-item" href="{% url 'login' %}">
                   <i class="fa-solid fa-circle-user"></i>

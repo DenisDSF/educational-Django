@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator
-from django.shortcuts import redirect
-from django.views.generic import ListView, DetailView
+from django.shortcuts import redirect, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
 from django.contrib import messages
 
 from .forms import CommentForm
@@ -19,7 +20,6 @@ class IndexView(ListView):
 
 
 class ArticleDetailView(DetailView):
-    model = Article
     template_name = 'article.html'
 
     def get_context_data(self, **kwargs):
@@ -35,27 +35,40 @@ class ArticleDetailView(DetailView):
         context['is_paginated'] = current_page.has_other_pages()
         return context
 
-def create_comment(request, pk):
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            cleaned_data = form.cleaned_data
-            if request.user.is_authenticated and not cleaned_data['is_anon']:
-                user = request.user
-                is_anon = False
-            else:
-                user = None
-                is_anon = True
-            comment = Comment(
-                article_id=pk,
-                user=user,
-                is_anon=is_anon,
-                text=cleaned_data['text']
-            )
-            comment.save()
-            return redirect('article-detail', pk)
+    def get_object(self, queryset=None):
+        return get_object_or_404(Article,
+            status=Article.Status.PUBLISH,
+            pk=self.kwargs[self.pk_url_kwarg]
+        )
+
+
+class ArticleCreateCommentView(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = None
+
+    def get_success_url(self):
+        kwargs = {'pk': self.kwargs[self.pk_url_kwarg]}
+        return reverse_lazy('article-detail', kwargs=kwargs)
+
+    def form_valid(self, form):
+        form.instance.article_id = self.kwargs['pk']
+        cleaned_data = form.cleaned_data
+        if self.request.user.is_authenticated and not cleaned_data['is_anon']:
+            form.instance.user = self.request.user
+            form.instance.is_anon = False
+        elif self.request.user.is_authenticated and cleaned_data['is_anon']:
+            form.instance.user = self.request.user
+            form.instance.is_anon = True
         else:
-            for f in form:
-                if f.errors:
-                    messages.add_message(request, messages.ERROR, f.errors)
-    return redirect('article-detail', pk)
+            form.instance.user = None
+            form.instance.is_anon = True
+        messages.success(self.request, 'Комментарий добавлен!')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        pk = self.kwargs[self.pk_url_kwarg]
+        for f in form:
+            if f.errors:
+                messages.add_message(self.request, messages.ERROR, f.errors)
+        return redirect('article-detail', pk)
