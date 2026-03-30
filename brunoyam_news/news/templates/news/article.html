@@ -58,7 +58,11 @@
       {% if comments %}
         {% for comment in comments %}
           <div class="article-comment">
-            <p>{{ comment.username }} сообщает:</p>
+            {% if comment.user__username %}
+            <p>{{ comment.user__username }} сообщает:</p>
+            {% else %}
+            <p>Анонимный пользователь сообщает:</p>
+            {% endif %}
             <p>{{ comment.text }}</p>
           </div>
         {% endfor %}

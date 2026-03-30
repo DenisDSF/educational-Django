@@ -84,7 +84,9 @@ class ArticleDetailViewTest(TestCase):
         self.assertContains(self.response, 'Научно-техническая новость 2')
         self.assertEqual(len(self.response.context['comments']), 10)
         self.assertEqual(self.response.context['is_paginated'], True)
-        self.assertEqual(self.response.context['comments'][0].text, self.text)
+        self.assertEqual(
+            self.response.context['comments'][0]['text'], self.text
+        )
 
 
 class CreateCommentViewTest(TestCase):
@@ -115,8 +117,8 @@ class CreateCommentViewTest(TestCase):
         )
         self.assertEqual(self.response.status_code, 200)
         self.assertEqual(
-            self.response.context['comments'][0].text,
+            self.response.context['comments'][0]['text'],
             self.last_comment_text)
         self.assertEqual(
-            self.response.context['comments'][1].text,
+            self.response.context['comments'][1]['text'],
             self.first_comment_text)

@@ -76,10 +76,3 @@ class Comment(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-    @property
-    def username(self):
-        if self.is_anon or self.user is None:
-            return 'Анонимный пользователь'
-        else:
-            return self.user
