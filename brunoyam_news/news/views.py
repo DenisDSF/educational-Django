@@ -6,8 +6,7 @@ from django.contrib import messages
 
 from .forms import CommentForm
 from .models import Article, Comment
-from .services import (get_news, get_raw_article_comments_text_and_username,
-                       get_article_comments_with_anon_users)
+from .services import get_news, get_article_comments_text_and_username
 
 
 class IndexView(ListView):
@@ -27,10 +26,7 @@ class ArticleDetailView(DetailView):
         paginate_by = 10
         context = super().get_context_data(**kwargs)
         page_number = self.request.GET.get('page', 1)
-        all_comments_raw = get_raw_article_comments_text_and_username(
-            self.object.pk
-        )
-        all_comments = get_article_comments_with_anon_users(all_comments_raw)
+        all_comments = get_article_comments_text_and_username(self.object.pk)
         paginator = Paginator(all_comments, paginate_by)
         current_page = paginator.get_page(page_number)
 

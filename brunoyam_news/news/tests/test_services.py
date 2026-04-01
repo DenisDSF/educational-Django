@@ -2,8 +2,7 @@ from django.test import TestCase
 
 from .factories import CommentFactory, ArticleFactory
 from ..models import Article
-from ..services import (get_news, get_raw_article_comments_text_and_username,
-                        get_article_comments_with_anon_users)
+from ..services import get_news, get_article_comments_text_and_username
 from users.models import User
 
 
@@ -53,11 +52,8 @@ class GetArticleCommentsTest(TestCase):
         новый комментарий с текстом self.text. Первый по свежести комментарий
         анонимен. Второй по свежести комментарий не анонимен.
         """
-        self.raw_comments = get_raw_article_comments_text_and_username(
+        self.comments = get_article_comments_text_and_username(
             self.article.pk
-        )
-        self.comments = get_article_comments_with_anon_users(
-            self.raw_comments
         )
         self.first_verifiable_comment = self.comments[0]
         self.second_verifiable_comment = self.comments[1]
